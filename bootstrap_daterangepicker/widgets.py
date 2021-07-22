@@ -41,18 +41,50 @@ def add_month(start_date, months):
 
 def common_dates(start_date=date.today()):
     one_day = timedelta(days=1)
-    return OrderedDict([
-        ('Today', (start_date, start_date)),
-        ('Yesterday', (start_date - one_day, start_date - one_day)),
-        ('This week', (start_date - timedelta(days=start_date.weekday()), start_date)),
-        ('Last week', (start_date - timedelta(days=start_date.weekday() + 7),
-                       start_date - timedelta(days=start_date.weekday() + 1))),
-        ('Week ago', (start_date - timedelta(days=7), start_date)),
-        ('This month', (start_date.replace(day=1), start_date)),
-        ('Last month', (add_month(start_date.replace(day=1), -1), start_date.replace(day=1) - one_day)),
-        ('3 months', (add_month(start_date, -3), start_date)),
-        ('Year', (add_month(start_date, -12), start_date)),
-        ])
+    return OrderedDict(
+        [
+            ("Today", (str(start_date), str(start_date))),
+            ("Yesterday", (str(start_date - one_day), str(start_date - one_day))),
+            ("This week", (str(start_date - timedelta(days=start_date.weekday())), str(start_date))),
+            (
+                "Last week",
+                (
+                    str(start_date - timedelta(days=start_date.weekday() + 7)),
+                    str(start_date - timedelta(days=start_date.weekday() + 1)),
+                ),
+            ),
+            ("Week ago", (str(start_date - timedelta(days=7)), str(start_date))),
+            ("This month", (str(start_date.replace(day=1)), str(start_date))),
+            ("Last month", (str(add_month(start_date.replace(day=1), -1)), str(start_date.replace(day=1) - one_day))),
+            ("3 months", (str(add_month(start_date, -3)), str(start_date))),
+            ("Year", (str(add_month(start_date, -12)), str(start_date))),
+        ]
+    )
+
+
+def common_datetimes(start_date=datetime.today()):
+    one_day = timedelta(days=1)
+    start_date = start_date.replace(hour=0, minute=0, second=0)
+    end_date = start_date.replace(hour=23, minute=59, second=59)
+    return OrderedDict(
+        [
+            ("Today", (str(start_date), str(end_date))),
+            ("Yesterday", (str(start_date - one_day), str(end_date - one_day))),
+            ("This week", (str(start_date - timedelta(days=start_date.weekday())), str(end_date))),
+            (
+                "Last week",
+                (
+                    str(start_date - timedelta(days=start_date.weekday() + 7)),
+                    str(end_date - timedelta(days=start_date.weekday() + 1)),
+                ),
+            ),
+            ("Week ago", (str(start_date - timedelta(days=7)), str(end_date))),
+            ("This month", (str(start_date.replace(day=1)), str(end_date))),
+            ("Last month", (str(add_month(start_date.replace(day=1), -1)), str(end_date.replace(day=1) - one_day))),
+            ("3 months", (str(add_month(start_date, -3)), str(end_date))),
+            ("Year", (str(add_month(start_date, -12)), str(end_date))),
+        ]
+    )
 
 
 class DateRangeWidget(forms.TextInput):
