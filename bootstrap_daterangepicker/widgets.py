@@ -16,6 +16,7 @@ __all__ = [
     'DateTimeRangeWidget',
     'add_month',
     'common_dates'
+    'common_datetimes'
 ]
 
 format_to_js = {
