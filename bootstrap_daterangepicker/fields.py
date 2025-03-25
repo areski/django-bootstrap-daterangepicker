@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 import six
@@ -31,7 +31,7 @@ class DateRangeMixin(object):
             pass
 
         # Try to coerce the value to unicode.
-        unicode_value = force_text(value, strings_only=True)
+        unicode_value = force_str(value, strings_only=True)
         if isinstance(unicode_value, six.text_type):
             value = unicode_value.strip()
         else:
